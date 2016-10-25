@@ -35,3 +35,30 @@ But when N = 5, there are two ways you can build a staircase from the given bric
 
 Write a function called answer(n) that takes a positive integer n and returns the number of different staircases that can be built from exactly n bricks. n will always be at least 3 (so you can have a staircase at all), but no more than 200, because Commander Lambda's not made of money!
 """
+#too slow
+def answer(n):
+	if n == 3:
+		return 1
+	if n == 4:
+		return 2
+	else:
+		memo = {3:[[2,1]],4:[[3,1]]}
+		for i in range(5,n+1):
+			currentList = []
+			for j in range(1,i):
+				if j > i-j:
+					currentList.append([j,i-j])
+			memo[i] = currentList
+		for i in range(4,n+1):
+			for el in memo[i]:
+				for inEl in memo[el[0]]:
+					if el[1] not in inEl:
+						insertEl = inEl+[el[1]]
+						finishedEl = sorted(insertEl,reverse=True)
+						if sum(finishedEl) == i:
+							if finishedEl not in memo[i]:
+								memo[i].append(finishedEl)
+	return len(memo[n])
+	
+print answer(7)
+print answer(9)
