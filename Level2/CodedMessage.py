@@ -1,3 +1,4 @@
+"""
 Please Pass the Coded Messages
 ==============================
 
@@ -23,3 +24,52 @@ Inputs:
     (int list) l = [3, 1, 4, 1, 5, 9]
 Output:
     (int) 94311
+"""
+def answer(l):
+	x = l.count(0)
+	for o in range(x):
+		l.remove(0)
+#one digit list
+	if len(l) ==1:
+		if l[0]%3 == 0:
+			return l[0]
+		else:
+			return 0
+#more than one digit list			
+	k = sorted(l,reverse=True)
+	remainder = sum(l)%3
+	if remainder == 0:
+		return  int(''.join(str(e) for e in sorted(l,reverse=True)))
+	else:
+		if l.count(0) == len(l)-1:
+			return 0
+		# when removing exact digit
+		if remainder in l:
+			l.remove(remainder)
+			return  int(''.join(str(e) for e in sorted(l,reverse=True)))
+		else:
+			#when I need to remove more digits(or one digits that sums up)
+			for coun in range(len(k)):
+				if (sum(k)-k[coun])%3 == 0:
+					k[coun] = 0
+					y = k.count(0)
+					for o in range(y):
+						k.remove(0)
+					for p in range(x):
+						k.append(0)
+					return   int(''.join(str(e) for e in k))
+				elif k[coun] <3:
+					k[coun] = 0
+		return 0
+			
+print answer([9,3,1,1,0,0])	
+"""
+print answer([3,1,4,1,5,9,2])
+print answer([4])
+print answer([3])
+print answer([3, 1, 4, 1]) #4311 
+print answer([3, 1, 4, 1, 5, 9]) #94311
+print answer([3,1,4,1,1,1]) #4311
+print answer([9,9,3,2,2]) #933
+"""								  	
+		
