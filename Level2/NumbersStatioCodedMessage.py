@@ -39,7 +39,7 @@ Inputs:
     (int list) l = [1, 2, 3, 4]
     (int) t = 15
 Output:
-    (int list) [-1, -1]
+    (int list) [-1, -1] 
     
 """
 def answer(l,t):
